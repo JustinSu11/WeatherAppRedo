@@ -1,23 +1,25 @@
 import { fetchCityData } from "../api/fetchCityData";
 import React, { useEffect, useState } from 'react';
+import './cityListView.css';
 
-const cities = ['Austin', 'San Francisco', 'North Carolina', 'New Jersey'];
+const cities = ['Austin', 'San Francisco', 'Jacksonville', 'New Jersey'];
 
 function CityList() {
-    // return (
-    //     <div>
-    //         {cities.map(city => <div>{city}</div>)}
-    //     </div>
-    // )
-
     // use for dynamic city list
     const [cityNames, setCityNames] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
-            const promises = cities.map(city => fetchCityData(city));
-            const resolvedCityNames = await Promise.all(promises);
-            setCityNames(resolvedCityNames.filter(name => name !== null));
+            try {
+                const promises = cities.map(async city => {
+                    const cityData = await fetchCityData(city);
+                    return cityData ? cityData.name : null;
+                });
+                const resolvedCityNames = await Promise.all(promises);
+                setCityNames(resolvedCityNames.filter(name => name !== null));
+            } catch (error) {
+                console.error('Error fetching city data:', error.message)
+            }
         };
 
         fetchData();
@@ -26,7 +28,7 @@ function CityList() {
     return (
         <div>
             {cityNames.map(cityName => (
-                <div key={cityName}>{cityName}</div>
+                <span key={cityName}>{cityName}</span>
             ))}
         </div>
     )

@@ -8,7 +8,7 @@ export const fetchCityData = async (city) => {
     try {
         const response = await axios.get(apiUrl);
         const cityData = response.data;
-        console.log(`City: ${cityData}`);
+        console.log('City: ', cityData);
         return cityData;
     } catch (error) {
         console.error(`Error fetching data for ${city}:`, error.message);

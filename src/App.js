@@ -1,12 +1,10 @@
-import './App.css';
 import CityList from './components/cityListView';
+import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <div>
-      <CityList />
-      </div>
+    <div className='cityListViewRowSpacing'>
+      <CityList/>
     </div>
   );
 }
