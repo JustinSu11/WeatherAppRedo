@@ -1,11 +1,28 @@
+import React from 'react';
 import CityList from './components/cityListView';
-import './App.css';
+import CityDetails from './components/cityDetailsView';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
+const router = createBrowserRouter([
+    {
+        element: <CityList />,
+        path: '/',
+        children: [
+            {
+                path: '/city/:cityName',
+                element: <CityDetails />
+            }
+        ]
+    }
+])
 
 function App() {
   return (
-    <div className='cityListViewRowSpacing'>
-      <CityList/>
-    </div>
+    <RouterProvider router={router} />
+        // {/* <Switch>
+        //     <Route path='/' exact component={CityList} />
+        //     <Route path='/city/:cityName' component={CityDetails} />
+        // </Switch> */}
   );
 }
 
