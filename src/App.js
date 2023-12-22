@@ -7,22 +7,16 @@ const router = createBrowserRouter([
     {
         element: <CityList />,
         path: '/',
-        children: [
-            {
-                path: '/city/:cityName',
-                element: <CityDetails />
-            }
-        ]
+    },
+    {
+        element: <CityDetails />,
+        path: '/:cityName',
     }
 ])
 
 function App() {
   return (
     <RouterProvider router={router} />
-        // {/* <Switch>
-        //     <Route path='/' exact component={CityList} />
-        //     <Route path='/city/:cityName' component={CityDetails} />
-        // </Switch> */}
   );
 }
 

@@ -28,7 +28,7 @@ function CityList() {
     }, []);
 
     const handleCityClick = (cityName) => {
-        navigate(`/city/${cityName}`);
+        navigate(`/${cityName}`);
     }
 
     return (

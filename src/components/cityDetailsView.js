@@ -1,38 +1,35 @@
 import { fetchCityData } from "../api/fetchCityData";
 import React, { useEffect, useState } from 'react';
-
-const cities = ['Austin', 'San Francisco', 'Jacksonville', 'New Jersey'];
+import { useNavigate, useParams } from 'react-router-dom';
 
 function CityDetails() {
-    const [cityDetails, setCityDetails] = useState();
+    const [cityDetails, setCityDetails] = useState(null);
+    const { cityName } = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const promises = cities.map(async city => {
-                    const cityData = await fetchCityData(city);
-                    return cityData ? cityData.main : null;
-                });
-                const resolvedCityDetails = await Promise.all(promises);
-                setCityDetails(resolvedCityDetails.filter(main => main !== null));
+                const cityData = await fetchCityData(cityName);
+                console.log('CityData: ', cityData);
+                setCityDetails(cityData ? cityData.main : null);
             } catch (error) {
                 console.error('Error fetching city data:', error.message)
             }
         };
 
         fetchData();
-    }, []);
+    }, [cityName]);
 
     return (
         <>
-            {console.log(cityDetails)}
             <div>
+                <button onClick={() => navigate('/')}>Back</button>
+            </div>
+            <div>
+                <h2>{cityName}</h2>
                 <p>
-                    High: {cityDetails ? cityDetails.map((data, index) => (
-                        <span key={index}>{data.temp_max}</span>
-                    )) : (
-                        <span>No data available</span>
-                    )}
+                    High: {cityDetails ? <span>{cityDetails.temp_max}</span> : <span>No data available</span>}
                 </p>
             </div>
         </>
