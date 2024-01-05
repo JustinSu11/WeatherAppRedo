@@ -1,14 +1,15 @@
 import { fetchCityData } from "../api/fetchCityData";
 import React, { useEffect, useState } from 'react';
-import './cityList.css';
-import { useNavigate } from 'react-router-dom';
+import './components.css';
+// import { useNavigate } from 'react-router-dom';
+import Card from "./cardComponent";
 
 const cities = ['Austin', 'San Francisco', 'Jacksonville', 'New Jersey'];
 
-function CityList() {
+const CityList = ({ onCityClick }) => {
     // use for dynamic city list
     const [cityNames, setCityNames] = useState([]);
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -27,14 +28,20 @@ function CityList() {
         fetchData();
     }, []);
 
-    const handleCityClick = (cityName) => {
-        navigate(`/${cityName}`);
-    }
+    // const handleCityClick = (cityName) => {
+    //     navigate(`/${cityName}`);
+    // }
 
     return (
-        <div>
+        <div className='vertical-scroll-container'>
             {cityNames.map(cityName => (
-                <span key={cityName} onClick={() => handleCityClick(cityName)} style={{ margin: '5px', cursor: 'pointer' }}>{cityName}</span>
+                <div key={cityName} onClick={() => onCityClick(cityName)} style={{ cursor: 'pointer' }} className='city-list-navigation'>
+                    <Card>
+                        <h3>
+                            {cityName}
+                        </h3>
+                    </Card>
+                </div>
             ))}
         </div>
     )
