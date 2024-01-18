@@ -12,7 +12,7 @@ const CityDetails = ({ selectedCity }) => {
             try {
                 const cityData = await fetchCityData(selectedCity);
                 console.log('CityData: ', cityData);
-                setCityDetails(cityData ? cityData.main : null);
+                setCityDetails(cityData ? cityData : null);
             } catch (error) {
                 console.error('Error fetching city data:', error.message)
             }
@@ -20,6 +20,8 @@ const CityDetails = ({ selectedCity }) => {
 
         fetchData();
     }, [selectedCity]);
+
+    //Hourly forecast for 4 days returns a 'list' array and I need to sort by 'dt_txt' and organize it into a new array. Repeat with 'main.temp' then map through both arrays to have temp above the times.
 
     return (
         <>
@@ -29,9 +31,20 @@ const CityDetails = ({ selectedCity }) => {
             <div style={{justifyContent: 'space-around'}}>
                 <h2>{selectedCity}</h2>
                 {selectedCity ? (
-                    <p>
-                        High: {cityDetails ? <span>{cityDetails.temp_max}</span> : <span>No data available</span>}
-                    </p>
+                    <>
+                        <p>
+                            High: {cityDetails ? <span>{cityDetails.main.temp_max}</span> : <span>No data available</span>}
+                        </p>
+                        <p>
+                            Low: {cityDetails ? <span>{cityDetails.main.temp_min}</span> : <span>No data available</span>}
+                        </p>
+                        <p>
+                            Humidity: {cityDetails ? <span>{cityDetails.main.humidity}%</span> : <span>No data available</span>}
+                        </p>
+                        <p>
+                            Wind: {cityDetails ? <span>{cityDetails.wind.speed}mph</span> : <span>No data available</span>}
+                        </p>
+                    </>
                 ) : (
                     <p>Select a city to view the weather</p>
                 )}
