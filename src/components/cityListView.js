@@ -3,10 +3,9 @@ import React, { useEffect, useState } from 'react';
 import './components.css';
 // import { useNavigate } from 'react-router-dom';
 import Card from "./cardComponent";
+import { fetchCityFromCoordinates } from "../api/fetchCityFromCoordinates";
 
-const cities = ['Austin', 'San Francisco', 'Jacksonville', 'New Jersey'];
-
-const CityList = ({ onCityClick }) => {
+const CityList = ({ citiesCoords, onCityClick }) => {
     // use for dynamic city list
     const [cityNames, setCityNames] = useState([]);
     // const navigate = useNavigate();
@@ -14,9 +13,24 @@ const CityList = ({ onCityClick }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const promises = cities.map(async city => {
-                    const cityData = await fetchCityData(city);
-                    return cityData ? cityData.name : null;
+                const promises = citiesCoords.map(async (cityCoords) => {
+                    const { latitude, longitude } = cityCoords;
+                    console.log(`This is your latitude: ${latitude} and longitude: ${longitude}`);
+                    try {
+                        const cityData = fetchCityData(latitude, longitude);
+                        console.log('fetching city data');
+                        try {
+                            const cityName = fetchCityFromCoordinates(cityData.data.lat, cityData.data.lon)
+                            console.log('City Name: ', cityName)
+                            return cityName;
+                        } catch (error) {
+                            console.error(`Error fetching name for city`, error.message);
+                        }
+                    } catch (error) {
+                        console.error(`Error fetching name for (${latitude}, ${longitude}):  `, error.message)
+                    }
+
+                    return null;
                 });
                 const resolvedCityNames = await Promise.all(promises);
                 setCityNames(resolvedCityNames.filter(name => name !== null));
@@ -26,7 +40,7 @@ const CityList = ({ onCityClick }) => {
         };
 
         fetchData();
-    }, []);
+    }, [citiesCoords]);
 
     // const handleCityClick = (cityName) => {
     //     navigate(`/${cityName}`);

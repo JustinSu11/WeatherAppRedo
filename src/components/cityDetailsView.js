@@ -10,7 +10,8 @@ const CityDetails = ({ selectedCity }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const cityData = await fetchCityData(selectedCity);
+                const { latitude, longitude } = selectedCity;
+                const cityData = await fetchCityData(latitude, longitude);
                 console.log('CityData: ', cityData);
                 setCityDetails(cityData ? cityData : null);
             } catch (error) {

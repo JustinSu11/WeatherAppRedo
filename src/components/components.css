@@ -29,20 +29,23 @@ span {
 
 .two-column-container {
     display: flex;
+    height: 100%;
 }
 
 .column-1 {
-    padding: 16px;
+    padding-right: 25px;
+    padding-top: 16px;
     border-right: 2px solid #ccc;
     margin-right: 8px;
     box-sizing: border-box;
-    width: 300px;
+    border-right-width: 3px;
+    border-color: rgba(0, 0, 0, 0.4);
+    margin-top: 25px;
+    margin-bottom: 25px
 }
 
 .column-2 {
     flex: 1;
     padding: 16px;
-    border-right: 2px solid #ccc;
-    margin-right: 8px;
     box-sizing: border-box;
 }
