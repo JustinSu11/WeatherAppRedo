@@ -4,7 +4,7 @@ import { fetchCityFromCoordinates } from './fetchCityFromCoordinates';
 const apiKey = '8ea86cc19c6d3725c7fa06cfde3d4c8e';
 
 export const fetchCityData = async (latitude, longitude) => {
-    const apiUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${latitude}&lon=${longitude}&exclude={minutely,alerts}&appid=${apiKey}`;
+    const apiUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${latitude}&lon=${longitude}&units=imperial&exclude=minutely,alerts&appid=${apiKey}`;
 
     try {
         const response = await axios.get(apiUrl);
@@ -13,16 +13,7 @@ export const fetchCityData = async (latitude, longitude) => {
         return cityData;
     } catch (error) {
         console.error(`Error fetching data for ${fetchCityFromCoordinates(latitude, longitude)}:`, error.message);
-        return null;
+        throw error;
     }
-    // console.log('latitude: ', latitude, 'longitude: ', longitude)
-
-    // return (
-    //     (
-    //         axios.get(apiUrl),
-    //         console.log('City: ', axios.get(apiUrl).data)
-    //     )
-        
-    // );
 };
 

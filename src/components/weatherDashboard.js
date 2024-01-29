@@ -1,13 +1,29 @@
 import CityDetails from "./cityDetailsView";
 import CityList from "./cityListView";
-import React, { useState, useEffect } from "react";
-import './components.css'
+import React, { useState, useEffect, useRef } from "react";
+import './components.css';
+import { fetchCoordsFromName } from "../api/fetchCoordsFromName";
+import { fetchCityFromCoordinates } from "../api/fetchCityFromCoordinates";
 
 function WeatherDashboard() {
     const [userLocation, setUserLocation] = useState(null);
-    const [selectedCity, setSelectedCity] = useState(userLocation);
+    const [selectedCityCoords, setSelectedCityCoords] = useState(userLocation);
+    const [selectedCityName, setSelectedCityName] = useState("");
     const [isLoading, setIsLoading] = useState(true);
-    const [citiesCoords, setCitiesCoords] = useState([])
+    const [citiesCoords, setCitiesCoords] = useState([]);
+
+    const userLocationRef = useRef(userLocation);
+
+    const handleCityClick = async (cityName) => {
+        setSelectedCityName(cityName);
+        console.log(`SelectedCityName from weatherDashboard: ${cityName}`)
+        const CityCoords = await fetchCoordsFromName(cityName);
+        setSelectedCityCoords(CityCoords);
+    }
+
+    useEffect(() => {
+        userLocationRef.current = userLocation;
+    }, [userLocation])
 
     useEffect(() => {
         const fetchUserLocation = async () => {
@@ -18,9 +34,14 @@ function WeatherDashboard() {
                     });
 
                     const { latitude, longitude } = position.coords;
-                    const newUserLocation = { latitude, longitude }
-                    setUserLocation(newUserLocation);
-                    setCitiesCoords([newUserLocation])
+                    const newUserLocationCoordinates = { latitude, longitude }
+                    setUserLocation(newUserLocationCoordinates);
+                    setCitiesCoords([newUserLocationCoordinates]);
+                    setSelectedCityCoords(newUserLocationCoordinates);
+
+                    const newUserLocationCityName = await fetchCityFromCoordinates(latitude, longitude)
+
+                    handleCityClick(newUserLocationCityName);
                 }
             } catch (error) {
                 console.error('Error fetching user location: ', error.message);
@@ -30,11 +51,7 @@ function WeatherDashboard() {
         };
 
         fetchUserLocation();
-    }, [userLocation])
-
-    const handleCityClick = (cityName) => {
-        setSelectedCity(cityName);
-    }
+    }, [userLocationRef])
 
     return (
         <div className='two-column-container'>
@@ -49,7 +66,7 @@ function WeatherDashboard() {
                 {isLoading ? (
                     <p>Loading...</p>
                 ) : (
-                    <CityDetails selectedCity={selectedCity} />
+                    <CityDetails selectedCityCoords={selectedCityCoords} selectedCityName={selectedCityName} />
                 )}
             </div>
         </div>
