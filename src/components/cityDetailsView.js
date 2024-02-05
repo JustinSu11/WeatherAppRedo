@@ -1,29 +1,38 @@
 import { fetchCityData } from "../api/fetchCityData";
 import React, { useEffect, useState, useRef } from 'react';
 // import { useNavigate, useParams } from 'react-router-dom';
+import Card from "./cardComponent";
+import { WeatherDataChart } from "./WeatherDataChart";
 
 const CityDetails = ({ selectedCityCoords, selectedCityName }) => {
     const [cityDetails, setCityDetails] = useState(null);
+    const [weatherDataForChart, setWeatherDataForChart] = useState([]);
     // const { cityName } = useParams();
     // const navigate = useNavigate();
-    const selectedCityCoordsRef = useRef(selectedCityCoords)
+    const selectedCityCoordsRef = useRef(selectedCityCoords);
 
     useEffect(() => {
         selectedCityCoordsRef.current = selectedCityCoords
     }, [selectedCityCoords])
 
     useEffect(() => {
-        console.log('CityDetails useEffect triggered');
-        console.log('selectedCityCoords:', selectedCityCoordsRef.current);
-        console.log('selectedCityName:', selectedCityName);
-        
         const fetchData = async () => {
             try {
+                //takes selected city which is set by handleCityClick() retrieves weather data for city
                 const { latitude, longitude } = selectedCityCoordsRef.current;
                 console.log(`City latitude ${latitude} and longitude ${longitude}`)
                 const cityData = await fetchCityData(latitude, longitude);
                 console.log('CityData: ', cityData);
                 setCityDetails(cityData ? cityData : null);
+
+                // Filter and set Weather Data for chart
+                const filteredWeatherData = cityData.hourly.slice(0, 24);
+                setWeatherDataForChart(filteredWeatherData);
+
+                setWeatherDataForChart((prevData) => {
+                    console.log('Weather data for chart:', prevData);
+                    return prevData;
+                });
             } catch (error) {
                 console.error('Error fetching city data:', error.message)
             }
@@ -40,17 +49,21 @@ const CityDetails = ({ selectedCityCoords, selectedCityName }) => {
                 <button onClick={() => navigate('/')}>Back</button>
             </div> */}
             <div style={{justifyContent: 'space-around'}}>
-                <h2>{selectedCityName}</h2>
-                {selectedCityName ? (
-                    <>
-                        <p>
-                            Current temp: {cityDetails ? <span>{cityDetails.current.temp}</span> : <span>No data available</span>}
-                        </p>
-                    </>
-                ) : (
-                    <p>Select a city to view the weather</p>
-                )}
-                
+                <Card>
+                    <h2 className='city-details-h2'>{selectedCityName}</h2>
+                    <WeatherDataChart data={weatherDataForChart}/>
+                    <Card>
+                        {selectedCityName ? (
+                            <>
+                                <p>
+                                    Current temp: {cityDetails ? <span>{cityDetails.current.temp}</span> : <span>No data available</span>}
+                                </p>
+                            </>
+                        ) : (
+                            <p>Select a city to view the weather</p>
+                        )}
+                    </Card>
+                </Card>
             </div>
         </>
 

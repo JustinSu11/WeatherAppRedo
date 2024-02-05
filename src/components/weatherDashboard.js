@@ -28,6 +28,7 @@ function WeatherDashboard() {
     useEffect(() => {
         const fetchUserLocation = async () => {
             try {
+                //retrieve user's location in coordinates
                 if (navigator.geolocation) {
                     const position = await new Promise((resolve, reject) => {
                         navigator.geolocation.getCurrentPosition(resolve, reject);
@@ -39,8 +40,8 @@ function WeatherDashboard() {
                     setCitiesCoords([newUserLocationCoordinates]);
                     setSelectedCityCoords(newUserLocationCoordinates);
 
+                    //Show weather data for first city on city list which should always be user's location
                     const newUserLocationCityName = await fetchCityFromCoordinates(latitude, longitude)
-
                     handleCityClick(newUserLocationCityName);
                 }
             } catch (error) {

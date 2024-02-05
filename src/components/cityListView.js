@@ -9,6 +9,8 @@ const CityList = ({ citiesCoords, onCityClick }) => {
     // use for dynamic city list
     const [cityNames, setCityNames] = useState([]);
     const citiesCoordsRef = useRef(citiesCoords);
+
+    //search bar
     // const navigate = useNavigate();
 
     useEffect(() => {
