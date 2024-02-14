@@ -3,6 +3,7 @@
     align-items: center;
     margin-left: 20px;
     margin-right:auto ;
+    margin-bottom: 20px;
 }
 
 span {
@@ -13,15 +14,14 @@ span {
 
 .card {
     background-color: white;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.496);
     padding: 20px;
-    border-radius: 5px;
+    border-radius: 10px;
     margin-bottom: 10px;
 }
 
 .vertical-scroll-container {
     overflow-y: auto;
-    scrollbar-width: none;
     -ms-overflow-style: none;
     display: flex;
     flex-direction: column;
@@ -59,3 +59,23 @@ span {
     flex-direction: column;
     align-items: center;
 }
+
+.custom-tooltip-for-WeatherDataChart {
+    background-color: #ffffff;
+    border: 1px solid #999999;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+}
+  
+.WeatherDataChart-label {
+    margin-bottom: 5px;
+}
+  
+.WeatherDataChart-value {
+    margin-top: 5px;
+}
+  
+  

@@ -14,6 +14,7 @@ const CityList = ({ citiesCoords, onCityClick }) => {
     // const navigate = useNavigate();
 
     useEffect(() => {
+        console.log('citiesCoords: ', citiesCoords)
         citiesCoordsRef.current = citiesCoords;
     }, [citiesCoords]);
 
@@ -49,7 +50,7 @@ const CityList = ({ citiesCoords, onCityClick }) => {
     return (
         <div className='vertical-scroll-container'>
             {cityNames.map(cityName => (
-                <div key={cityName} onClick={() => onCityClick(cityName)} style={{ cursor: 'pointer' }} className='city-list-navigation'>
+                <div key={cityName} onClick={() => onCityClick(cityName)} style={{ cursor: 'pointer', width: '200px', height: '100px'}} className='city-list-navigation'>
                     <Card>
                         <h3>
                             {cityName}

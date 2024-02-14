@@ -37,8 +37,16 @@ function WeatherDashboard() {
                     const { latitude, longitude } = position.coords;
                     const newUserLocationCoordinates = { latitude, longitude }
                     setUserLocation(newUserLocationCoordinates);
-                    setCitiesCoords([newUserLocationCoordinates]);
                     setSelectedCityCoords(newUserLocationCoordinates);
+
+                    //retrieve coordinates of popular cities and adds them to the cities coords array
+                    const popularCities = ["New York", "Tokyo", "London", "Paris"];
+                    const coordsPromises = popularCities.map(async (cityName) => {
+                        const cityCoords = await fetchCoordsFromName(cityName);
+                        return cityCoords;
+                    });
+                    const resolvedCityCoords = await Promise.all(coordsPromises);
+                    setCitiesCoords([newUserLocationCoordinates, ...resolvedCityCoords]);
 
                     //Show weather data for first city on city list which should always be user's location
                     const newUserLocationCityName = await fetchCityFromCoordinates(latitude, longitude)

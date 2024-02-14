@@ -14,7 +14,22 @@ export const WeatherDataChart = ({ data }) => {
     const transformedData = data.map(dataPoint => ({
         name: new Date(dataPoint.dt * 1000).toLocaleTimeString(),
         value: dataPoint[selectedWeatherAttribute],
-      }));
+        unit: (selectedWeatherAttribute === 'temp' || selectedWeatherAttribute === 'feels_like' ? '°' : selectedWeatherAttribute === 'humidity' ? '%' : null),
+    }));
+
+    const CustomTooltip = ({ active, payload, label }) => {
+        if (active && payload && payload.length) {
+            const { value, unit } = payload[0].payload;
+            return (
+                <div className="custom-tooltip-for-WeatherDataChart">
+                    <p className="WeatherDataChart-label">{label}</p>
+                    <p className="WeatherDataChart-value">{`${value} ${unit}`}</p>
+                </div>
+            );
+        }
+
+        return null;
+    };
 
     return (
         <div>
@@ -22,6 +37,7 @@ export const WeatherDataChart = ({ data }) => {
             <select value={selectedWeatherAttribute} onChange={handleFilterChange}>
                 <option value="temp">Temperature</option>
                 <option value="feels_like">Feels Like</option>
+                <option value="humidity">Humidity</option>
             </select>
             {/*recharts*/}
             <div className='weather-data-chart-container'>
@@ -30,7 +46,7 @@ export const WeatherDataChart = ({ data }) => {
                     <CartesianGrid stroke="#ccc" />
                     <XAxis dataKey="name" />
                     <YAxis datakey="value"/>
-                    <Tooltip />
+                    <Tooltip content={<CustomTooltip />} />
                 </LineChart>
             </div>
         </div>

@@ -7,8 +7,10 @@ export const fetchCoordsFromName = async (cityName) => {
 
     try {
         const response = await axios.get(apiUrl);
-        console.log(`Api response: ${response}`);
-
+        console.log('Api response: ', response);
+        const latitude = response.data[0].lat
+        const longitude = response.data[0].lon
+        return { latitude, longitude }
     } catch (error) {
         console.log(`Error fetching latitude and longitude for ${cityName}`);
         throw error;

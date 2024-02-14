@@ -56,7 +56,7 @@ const CityDetails = ({ selectedCityCoords, selectedCityName }) => {
                         {selectedCityName ? (
                             <>
                                 <p>
-                                    Current temp: {cityDetails ? <span>{cityDetails.current.temp}</span> : <span>No data available</span>}
+                                    Current temp: {cityDetails ? <span>{cityDetails.current.temp}°</span> : <span>No data available</span>}
                                 </p>
                             </>
                         ) : (
