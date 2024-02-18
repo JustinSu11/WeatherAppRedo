@@ -22,8 +22,8 @@ export const WeatherDataChart = ({ data }) => {
             const { value, unit } = payload[0].payload;
             return (
                 <div className="custom-tooltip-for-WeatherDataChart">
-                    <p className="WeatherDataChart-label">{label}</p>
                     <p className="WeatherDataChart-value">{`${value} ${unit}`}</p>
+                    <p className="WeatherDataChart-label">{label}</p>
                 </div>
             );
         }
