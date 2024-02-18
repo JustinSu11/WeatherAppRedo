@@ -29,10 +29,6 @@ const CityDetails = ({ selectedCityCoords, selectedCityName }) => {
                 const filteredWeatherData = cityData.hourly.slice(0, 24);
                 setWeatherDataForChart(filteredWeatherData);
 
-                setWeatherDataForChart((prevData) => {
-                    console.log('Weather data for chart:', prevData);
-                    return prevData;
-                });
             } catch (error) {
                 console.error('Error fetching city data:', error.message)
             }
