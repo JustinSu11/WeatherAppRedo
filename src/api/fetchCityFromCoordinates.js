@@ -1,13 +1,12 @@
 import axios from 'axios';
 
-const apiKey = '8ea86cc19c6d3725c7fa06cfde3d4c8e';
+const apiKey = process.env.REACT_APP_API_KEY;
 
 export const fetchCityFromCoordinates = async (lat, lon) => {
-    const apiUrl = `http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+    const apiUrl = 'http://api.openweathermap.org/geo/1.0/reverse';
 
     try {
-        console.log(`latitude from fetchCityFromCoordinates ${lat}, ${lon}`)
-        const response = await axios.get(apiUrl);
+        const response = await axios.get(apiUrl, { params: { lat: lat, lon: lon, appid: apiKey}});
         console.log('API Response:', response);
 
         if (response.data && response.data[0] && response.data[0].name) {

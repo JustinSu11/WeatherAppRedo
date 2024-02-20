@@ -1,13 +1,14 @@
 import axios from 'axios';
 import { fetchCityFromCoordinates } from './fetchCityFromCoordinates';
 
-const apiKey = '8ea86cc19c6d3725c7fa06cfde3d4c8e';
+const apiKey = process.env.REACT_APP_API_KEY;
 
 export const fetchCityData = async (latitude, longitude) => {
-    const apiUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${latitude}&lon=${longitude}&units=imperial&exclude=minutely,alerts&appid=${apiKey}`;
+    const apiUrl = process.env.REACT_APP_API_URL;
 
     try {
-        const response = await axios.get(apiUrl);
+        console.log(`API Key: ${apiKey}`)
+        const response = await axios.get(apiUrl, { params: { lat: latitude, lon: longitude, units: 'imperial', exclude: 'minutely', appid: apiKey }});
         const cityData = response.data;
         console.log('City: ', cityData);
         return cityData;
