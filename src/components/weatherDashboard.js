@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from "react"
 import './components.css'
 import { fetchCoordsFromName } from "../api/fetchCoordsFromName"
 import { fetchCityFromCoordinates } from "../api/fetchCityFromCoordinates"
+import { popularCities } from "../configuration/config"
 
 function WeatherDashboard() {
     const [userLocation, setUserLocation] = useState(null)
@@ -40,13 +41,7 @@ function WeatherDashboard() {
                     setSelectedCityCoords(newUserLocationCoordinates)
 
                     //retrieve coordinates of popular cities and adds them to the cities coords array
-                    const popularCities = ["New York", "Tokyo", "London", "Paris"]
-                    const coordsPromises = popularCities.map(async (cityName) => {
-                        const cityCoords = await fetchCoordsFromName(cityName)
-                        return cityCoords
-                    })
-                    const resolvedCityCoords = await Promise.all(coordsPromises)
-                    setCitiesCoords([newUserLocationCoordinates, ...resolvedCityCoords])
+                    setCitiesCoords([newUserLocationCoordinates, ...popularCities])
 
                     //Show weather data for first city on city list which should always be user's location
                     const newUserLocationCityName = await fetchCityFromCoordinates(latitude, longitude)

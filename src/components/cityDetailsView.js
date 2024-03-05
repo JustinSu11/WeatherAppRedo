@@ -2,7 +2,7 @@ import { fetchCityData } from "../api/fetchCityData"
 import React, { useEffect, useState, useRef } from 'react'
 // import { useNavigate, useParams } from 'react-router-dom';
 import Card from "./cardComponent"
-import { WeatherDataChart } from "./WeatherDataChart"
+import WeatherDataChart from "./WeatherDataChart"
 
 const CityDetails = ({ selectedCityCoords, selectedCityName }) => {
     const [cityDetails, setCityDetails] = useState(null)
