@@ -1,9 +1,9 @@
-import React from 'react';
+import React from 'react'
 // import CityList from './components/cityListView';
 // import CityDetails from './components/cityDetailsView';
-import WeatherDashboard from './components/weatherDashboard';
+import WeatherDashboard from './components/weatherDashboard'
 // import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import './App.css';
+import './App.css'
 
 // const router = createBrowserRouter([
 //     {
@@ -20,7 +20,7 @@ function App() {
   return (
     // <RouterProvider router={router} />
     <WeatherDashboard />
-  );
+  )
 }
 
-export default App;
+export default App

@@ -1,8 +1,8 @@
-import React from "react";
-import "./components.css";
+import React from "react"
+import "./components.css"
 
 function Card(props) {
-    return <div className="card">{props.children}</div>;
+    return <div className="card">{props.children}</div>
 }
 
-export default Card;
+export default Card

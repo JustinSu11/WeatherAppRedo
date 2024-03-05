@@ -1,47 +1,47 @@
 // import { fetchCityData } from "../api/fetchCityData";
-import React, { useEffect, useState, useRef } from 'react';
-import './components.css';
+import React, { useEffect, useState, useRef } from 'react'
+import './components.css'
 // import { useNavigate } from 'react-router-dom';
-import Card from "./cardComponent";
-import { fetchCityFromCoordinates } from "../api/fetchCityFromCoordinates";
+import Card from "./cardComponent"
+import { fetchCityFromCoordinates } from "../api/fetchCityFromCoordinates"
 
 const CityList = ({ citiesCoords, onCityClick }) => {
     // use for dynamic city list
-    const [cityNames, setCityNames] = useState([]);
-    const citiesCoordsRef = useRef(citiesCoords);
+    const [cityNames, setCityNames] = useState([])
+    const citiesCoordsRef = useRef(citiesCoords)
 
     //search bar
     // const navigate = useNavigate();
 
     useEffect(() => {
         console.log('citiesCoords: ', citiesCoords)
-        citiesCoordsRef.current = citiesCoords;
-    }, [citiesCoords]);
+        citiesCoordsRef.current = citiesCoords
+    }, [citiesCoords])
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const promises = citiesCoordsRef.current.map(async (cityCoords) => {
-                    const { latitude, longitude } = cityCoords;
-                    console.log(`This is your latitude: ${latitude} and longitude: ${longitude}`);
+                    const { latitude, longitude } = cityCoords
+                    console.log(`This is your latitude: ${latitude} and longitude: ${longitude}`)
                     try {
                         const cityName = await fetchCityFromCoordinates(latitude, longitude)
                         console.log('City Name from list: ', cityName)
-                        return cityName;
+                        return cityName
                     } catch (error) {
-                        console.error(`Error fetching name for (${latitude}, ${longitude}):  `, error.message);
-                        return null;
+                        console.error(`Error fetching name for (${latitude}, ${longitude}):  `, error.message)
+                        return null
                     }
-                });
-                const resolvedCityNames = await Promise.all(promises);
-                setCityNames(resolvedCityNames.filter(name => name !== null));
+                })
+                const resolvedCityNames = await Promise.all(promises)
+                setCityNames(resolvedCityNames.filter(name => name !== null))
             } catch (error) {
                 console.error('Error fetching city data:', error.message)
             }
-        };
+        }
 
-        fetchData();
-    }, []);
+        fetchData()
+    }, [])
 
     // const handleCityClick = (cityName) => {
     //     navigate(`/${cityName}`);
@@ -62,4 +62,4 @@ const CityList = ({ citiesCoords, onCityClick }) => {
     )
 }
 
-export default CityList;    
+export default CityList    
