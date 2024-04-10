@@ -50,8 +50,8 @@ const CityList = ({ citiesCoords, onCityClick }) => {
     return (
         <div className='vertical-scroll-container'>
             {cityNames.map(cityName => (
-                <div key={cityName} onClick={() => onCityClick(cityName)} style={{ cursor: 'pointer', width: '200px', height: '100px'}} className='city-list-navigation'>
-                    <Card>
+                <div className='city-list-navigation'>
+                    <Card key={cityName} onClick={() => onCityClick(cityName)} style={{display: "flex", flexDirection: "column", width: "80%", height: "auto"}}>
                         <h3>
                             {cityName}
                         </h3>

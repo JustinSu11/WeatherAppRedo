@@ -26,36 +26,32 @@ function WeatherDashboard() {
         userLocationRef.current = userLocation
     }, [userLocation])
 
-    useEffect(() => {
-        const fetchUserLocation = async () => {
-            try {
-                //retrieve user's location in coordinates
-                if (navigator.geolocation) {
-                    const position = await new Promise((resolve, reject) => {
-                        navigator.geolocation.getCurrentPosition(resolve, reject)
-                    })
+    const fetchUserLocation = async () => { 
+        try {
+            //retrieve user's location in coordinates
+            if (navigator.geolocation) {
+                const position = await new Promise((resolve, reject) => {
+                    navigator.geolocation.getCurrentPosition(resolve, reject)
+                })
 
-                    const { latitude, longitude } = position.coords
-                    const newUserLocationCoordinates = { latitude, longitude }
-                    setUserLocation(newUserLocationCoordinates)
-                    setSelectedCityCoords(newUserLocationCoordinates)
+                const { latitude, longitude } = position.coords
+                const newUserLocationCoordinates = { latitude, longitude }
+                setUserLocation(newUserLocationCoordinates)
+                setSelectedCityCoords(newUserLocationCoordinates)
 
-                    //retrieve coordinates of popular cities and adds them to the cities coords array
-                    setCitiesCoords([newUserLocationCoordinates, ...popularCities])
+                //retrieve coordinates of popular cities and adds them to the cities coords array
+                setCitiesCoords([newUserLocationCoordinates, ...popularCities])
 
-                    //Show weather data for first city on city list which should always be user's location
-                    const newUserLocationCityName = await fetchCityFromCoordinates(latitude, longitude)
-                    handleCityClick(newUserLocationCityName)
-                }
-            } catch (error) {
-                console.error('Error fetching user location: ', error.message)
-            } finally {
-                setIsLoading(false)
+                //Show weather data for first city on city list which should always be user's location
+                const newUserLocationCityName = await fetchCityFromCoordinates(latitude, longitude)
+                handleCityClick(newUserLocationCityName)
             }
+        } catch (error) {
+            console.error('Error fetching user location: ', error.message)
+        } finally {
+            setIsLoading(false)
         }
-
-        fetchUserLocation()
-    }, [userLocationRef])
+    }
 
     return (
         <div className='two-column-container'>
@@ -63,7 +59,10 @@ function WeatherDashboard() {
                 {isLoading ?  (
                     <p>Loading...</p>
                 ) : (
+                    <>
+                    <button onClick={() => fetchUserLocation()}>My location</button>
                     <CityList citiesCoords={citiesCoords} onCityClick={handleCityClick} />
+                    </>
                 )}
             </div>
             <div className='column-2'>
