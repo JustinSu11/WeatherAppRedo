@@ -1,5 +1,5 @@
 // import { fetchCityData } from "../api/fetchCityData";
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, /*useRef*/ } from 'react'
 import './components.css'
 // import { useNavigate } from 'react-router-dom';
 import Card from "./cardComponent"
@@ -8,20 +8,14 @@ import { fetchCityFromCoordinates } from "../api/fetchCityFromCoordinates"
 const CityList = ({ citiesCoords, onCityClick }) => {
     // use for dynamic city list
     const [cityNames, setCityNames] = useState([])
-    const citiesCoordsRef = useRef(citiesCoords)
 
     //search bar
     // const navigate = useNavigate();
 
     useEffect(() => {
-        console.log('citiesCoords: ', citiesCoords)
-        citiesCoordsRef.current = citiesCoords
-    }, [citiesCoords])
-
-    useEffect(() => {
         const fetchData = async () => {
             try {
-                const promises = citiesCoordsRef.current.map(async (cityCoords) => {
+                const promises = citiesCoords.map(async (cityCoords) => {
                     const { latitude, longitude } = cityCoords
                     console.log(`This is your latitude: ${latitude} and longitude: ${longitude}`)
                     try {
@@ -41,7 +35,7 @@ const CityList = ({ citiesCoords, onCityClick }) => {
         }
 
         fetchData()
-    }, [])
+    }, [citiesCoords])
 
     // const handleCityClick = (cityName) => {
     //     navigate(`/${cityName}`);

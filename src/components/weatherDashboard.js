@@ -3,15 +3,14 @@ import CityList from "./cityListView"
 import React, { useState, useEffect, useRef } from "react"
 import './components.css'
 import { fetchCoordsFromName } from "../api/fetchCoordsFromName"
-import { fetchCityFromCoordinates } from "../api/fetchCityFromCoordinates"
 import { popularCities } from "../configuration/config"
 
 function WeatherDashboard() {
     const [userLocation, setUserLocation] = useState(null)
-    const [selectedCityCoords, setSelectedCityCoords] = useState(userLocation)
+    const [selectedCityCoords, setSelectedCityCoords] = useState(popularCities[0])
     const [selectedCityName, setSelectedCityName] = useState("")
-    const [isLoading, setIsLoading] = useState(true)
-    const [citiesCoords, setCitiesCoords] = useState([])
+    const [citiesCoords, setCitiesCoords] = useState([...popularCities])
+    const [locationFound, setLocationFound] = useState(false)
 
     const userLocationRef = useRef(userLocation)
 
@@ -26,52 +25,44 @@ function WeatherDashboard() {
         userLocationRef.current = userLocation
     }, [userLocation])
 
-    useEffect(() => {
-        const fetchUserLocation = async () => {
-            try {
-                //retrieve user's location in coordinates
-                if (navigator.geolocation) {
-                    const position = await new Promise((resolve, reject) => {
-                        navigator.geolocation.getCurrentPosition(resolve, reject)
-                    })
+    const fetchUserLocation = async () => {
+        try {
+            //retrieve user's location in coordinates
+            if (navigator.geolocation) {
+                const position = await new Promise((resolve, reject) => {
+                    navigator.geolocation.getCurrentPosition(resolve, reject)
+                })
 
-                    const { latitude, longitude } = position.coords
-                    const newUserLocationCoordinates = { latitude, longitude }
-                    setUserLocation(newUserLocationCoordinates)
-                    setSelectedCityCoords(newUserLocationCoordinates)
+                const { latitude, longitude } = position.coords
+                const newUserLocationCoordinates = { latitude, longitude }
+                setUserLocation(newUserLocationCoordinates)
+                setSelectedCityCoords(newUserLocationCoordinates)
 
-                    //retrieve coordinates of popular cities and adds them to the cities coords array
-                    setCitiesCoords([newUserLocationCoordinates, ...popularCities])
+                //retrieve coordinates of popular cities and adds them to the cities coords array
+                setCitiesCoords([newUserLocationCoordinates, ...citiesCoords])
 
-                    //Show weather data for first city on city list which should always be user's location
-                    const newUserLocationCityName = await fetchCityFromCoordinates(latitude, longitude)
-                    handleCityClick(newUserLocationCityName)
-                }
-            } catch (error) {
-                console.error('Error fetching user location: ', error.message)
-            } finally {
-                setIsLoading(false)
             }
+        } catch (error) {
+            console.error('Error fetching user location: ', error.message)
+        } finally {
+            setLocationFound(true)
         }
-
-        fetchUserLocation()
-    }, [userLocationRef])
+    }
 
     return (
         <div className='two-column-container'>
             <div className='column-1'>
-                {isLoading ?  (
-                    <p>Loading...</p>
-                ) : (
+                {locationFound ?  (
                     <CityList citiesCoords={citiesCoords} onCityClick={handleCityClick} />
+                ) : (
+                    <>
+                    <button onClick={() => fetchUserLocation()}>My Location</button>
+                    <CityList citiesCoords={citiesCoords} onCityClick={handleCityClick} />
+                    </>
                 )}
             </div>
             <div className='column-2'>
-                {isLoading ? (
-                    <p>Loading...</p>
-                ) : (
                     <CityDetails selectedCityCoords={selectedCityCoords} selectedCityName={selectedCityName} />
-                )}
             </div>
         </div>
     )
