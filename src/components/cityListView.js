@@ -46,7 +46,7 @@ const CityList = ({ citiesCoords, onCityClick }) => {
             {cityNames.map(cityName => (
                 <div key={cityName} onClick={() => onCityClick(cityName)} style={{ cursor: 'pointer', width: '200px', height: '100px'}} className='city-list-navigation'>
                     <Card>
-                        <h3>
+                        <h3 className='city-list-h3'>
                             {cityName}
                         </h3>
                     </Card>

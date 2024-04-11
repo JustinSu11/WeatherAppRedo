@@ -2,6 +2,7 @@ import { fetchCityData } from "../api/fetchCityData"
 import React, { useEffect, useState, useRef } from 'react'
 // import { useNavigate, useParams } from 'react-router-dom';
 import Card from "./cardComponent"
+import DetailCard from "./CityDetailCardComponent"
 import WeatherDataChart from "./WeatherDataChart"
 import { fetchCityFromCoordinates } from "../api/fetchCityFromCoordinates"
 
@@ -46,7 +47,7 @@ const CityDetails = ({ selectedCityCoords, selectedCityName }) => {
     return (
         <>
             <div style={{justifyContent: 'space-around'}}>
-                <Card>
+                <DetailCard>
                     <h2 className='city-details-h2'>{cityName}</h2>
                     <WeatherDataChart data={weatherDataForChart}/>
                     <Card>
@@ -60,7 +61,7 @@ const CityDetails = ({ selectedCityCoords, selectedCityName }) => {
                             <p>Select a city to view the weather</p>
                         )}
                     </Card>
-                </Card>
+                </DetailCard>
             </div>
         </>
 

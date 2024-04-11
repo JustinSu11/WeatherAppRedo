@@ -1,9 +1,7 @@
 .city-list-navigation {
     display: flex;
-    align-items: center;
-    margin-left: 20px;
-    margin-right:auto ;
-    margin-bottom: 20px;
+    justify-content: center;
+    margin: calc(10px + ((100% - max-content) / 2)); /* Dynamic padding calculation */
 }
 
 span {
@@ -15,14 +13,30 @@ span {
 .card {
     background-color: white;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.496);
+    border-radius: 10px;
+    width: 150px;
+    padding: calc(10px + ((100% - max-content) / 2)); /* Dynamic padding calculation */
+    height: 75%;
+    justify-content: space-between;
+}
+
+.city-detail-card {
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.496);
     padding: 20px;
     border-radius: 10px;
-    margin-bottom: 10px;
+}
+
+.city-list-h3 {
+    display: flex; /* Enable flexbox for centering */
+    justify-content: center; /* Center content horizontally */
+    height: 50%;
+    align-items: center;
 }
 
 .vertical-scroll-container {
     overflow-y: auto;
-    -ms-overflow-style: none;
+    flex-wrap: wrap;
     display: flex;
     flex-direction: column;
 }
