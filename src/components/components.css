@@ -25,6 +25,16 @@ span {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.496);
     padding: 20px;
     border-radius: 10px;
+    height: 90%;
+    width: 100%;
+}
+
+.city-detail-attributes-card {
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.496);
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .city-list-h3 {
@@ -34,11 +44,16 @@ span {
     align-items: center;
 }
 
+.city-attributes-h4 {
+    text-align: center;
+}
+
 .vertical-scroll-container {
     overflow-y: auto;
     flex-wrap: wrap;
     display: flex;
     flex-direction: column;
+    height: 100%;
 }
 
 .two-column-container {
@@ -91,5 +106,3 @@ span {
 .WeatherDataChart-value {
     margin-top: 5px;
 }
-  
-  
