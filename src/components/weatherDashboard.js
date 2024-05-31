@@ -35,11 +35,9 @@ function WeatherDashboard() {
                 const { latitude, longitude } = position.coords
                 const newUserLocationCoordinates = { latitude, longitude }
                 setUserLocation(newUserLocationCoordinates)
-                // setSelectedCityCoords(newUserLocationCoordinates)
 
                 //retrieve coordinates of popular cities and adds them to the cities coords array
-                const cityName = await fetchCityFromCoordinates(latitude, longitude)
-                setCities([{latitude: newUserLocationCoordinates.latitude, longitude: newUserLocationCoordinates.longitude, name: cityName}, ...cities])
+                setCitiesWithoutNames((prevCitiesWithoutNames) => [{latitude: newUserLocationCoordinates.latitude, longitude: newUserLocationCoordinates.longitude}, ...prevCitiesWithoutNames])
 
             }
         } catch (error) {
@@ -60,7 +58,7 @@ function WeatherDashboard() {
               })
             )
             //update cities state
-            setCities((prevCities) => [...prevCities.filter((city) => !updatedCities.some((updatedCity) => updatedCity.name === city.name)), ...updatedCities])
+            setCities((prevCities) => [...updatedCities, ...prevCities.filter((city) => !updatedCities.some((updatedCity) => updatedCity.name === city.name))])
             //remove processed entries from citiesWithoutNames state
             setCitiesWithoutNames((prevCitiesWithoutNames) =>
                 prevCitiesWithoutNames.filter((city) => !updatedCities.some((updatedCity) => updatedCity.latitude === city.latitude && updatedCity.longitude === city.longitude))
@@ -75,7 +73,7 @@ function WeatherDashboard() {
           updateCityNames()
         }
       
-      }, [citiesWithoutNames])
+    }, [citiesWithoutNames])
 
     useEffect(() => {
         if(cities.length > 0) {
