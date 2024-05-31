@@ -33,7 +33,7 @@ function WeatherDashboard() {
                     navigator.geolocation.getCurrentPosition(resolve, reject)
                 })
                 const { latitude, longitude } = position.coords
-                const newUserLocationCoordinates = { latitude, longitude }
+                const newUserLocationCoordinates = { latitude: latitude, longitude: longitude }
                 setUserLocation(newUserLocationCoordinates)
 
                 //retrieve coordinates of popular cities and adds them to the cities coords array
