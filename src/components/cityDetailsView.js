@@ -16,20 +16,22 @@ const CityDetails = ({ selectedCity }) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            try {
-                //takes selected city which is set by handleCityClick() retrieves weather data for city
-                console.log(`City latitude ${selectedCity.latitude} and longitude ${selectedCity.longitude}`)
-                const cityData = await fetchCityData(selectedCity.latitude, selectedCity.longitude)
-                console.log('CityData: ', cityData)
-                setCityDetails(cityData ? cityData : null)
-                setCityName(selectedCity.name)
+            if(selectedCity && selectedCity.latitude && selectedCity.longitude) {
+                try {
+                    //takes selected city which is set by handleCityClick() retrieves weather data for city
+                    console.log(`City latitude ${selectedCity.latitude} and longitude ${selectedCity.longitude}`)
+                    const cityData = await fetchCityData(selectedCity.latitude, selectedCity.longitude)
+                    console.log('CityData: ', cityData)
+                    setCityDetails(cityData ? cityData : null)
+                    setCityName(selectedCity.name)
 
-                // Filter and set Weather Data for chart
-                const filteredWeatherData = cityData.hourly.slice(0, 12)
-                setWeatherDataForChart(filteredWeatherData)
+                    // Filter and set Weather Data for chart
+                    const filteredWeatherData = cityData.hourly.slice(0, 12)
+                    setWeatherDataForChart(filteredWeatherData)
 
-            } catch (error) {
-                console.error('Error fetching city data:', error.message)
+                } catch (error) {
+                    console.error('Error fetching city data:', error.message)
+                }
             }
         }
 
