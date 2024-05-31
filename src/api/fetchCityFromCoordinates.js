@@ -3,7 +3,7 @@ import axios from 'axios'
 const apiKey = process.env.REACT_APP_API_KEY
 
 export const fetchCityFromCoordinates = async (lat, lon) => {
-    const apiUrl = 'http://api.openweathermap.org/geo/1.0/reverse'
+    const apiUrl = 'https://api.openweathermap.org/geo/1.0/reverse'
     const delay = 250
     await new Promise((resolve => setTimeout(resolve, delay)))
 
