@@ -4,6 +4,8 @@ const apiKey = process.env.REACT_APP_API_KEY
 
 export const fetchCityFromCoordinates = async (lat, lon) => {
     const apiUrl = 'http://api.openweathermap.org/geo/1.0/reverse'
+    const delay = 250
+    await new Promise((resolve => setTimeout(resolve, delay)))
 
     try {
         const response = await axios.get(apiUrl, { params: { lat: lat, lon: lon, appid: apiKey}})
@@ -19,6 +21,6 @@ export const fetchCityFromCoordinates = async (lat, lon) => {
         }
     } catch (error) {
         console.error(`Error fetching city name for ${lat} and ${lon}: `, error.message)
-        throw error // Re-throw the error to propagate it
+        throw error
     }
 }
