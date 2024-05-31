@@ -1,22 +1,8 @@
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts'
-import React, { useState } from 'react'
+import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
+import React from 'react'
 import './components.css'
 
-const WeatherDataChart = ({ data }) => {
-    const [selectedWeatherAttribute, setSelectedWeatherAttribute] = useState('temp')
-
-    //takes in the selected filter value and sets the weather attribute to the selected value
-    const handleFilterChange = (event) => {
-        setSelectedWeatherAttribute(event.target.value)
-    }
-
-    //Transform data to recharts format
-    const transformedData = data.map(dataPoint => ({
-        name: new Date(dataPoint.dt * 1000).toLocaleTimeString(),
-        value: dataPoint[selectedWeatherAttribute],
-        unit: (selectedWeatherAttribute === 'temp' || selectedWeatherAttribute === 'feels_like' ? '°' : selectedWeatherAttribute === 'humidity' ? '%' : null),
-    }))
-
+const WeatherDataChart = ({ data, selectedWeatherAttribute, onChange }) => {
     function CustomTooltip({ active, payload, label }) {
         if (active && payload && payload.length) {
             const { value, unit } = payload[0].payload
@@ -33,22 +19,27 @@ const WeatherDataChart = ({ data }) => {
 
     return (
         <div>
+            
             {/*recharts*/}
             <div className='weather-data-chart-container'>
+                <ResponsiveContainer width="60%" aspect={3}>
                 {/*dropdown for filter */}
-                <select value={selectedWeatherAttribute} onChange={handleFilterChange}>
-                    <option value="temp">Temperature</option>
-                    <option value="feels_like">Feels Like</option>
-                    <option value="humidity">Humidity</option>
-                </select>
-                <LineChart width={600} height={300} data={transformedData}>
+                <div style={{display: 'flex', justifyContent: 'flex-end' }}>
+                    <select value={selectedWeatherAttribute} onChange={onChange}>
+                        <option value="temp">Temperature</option>
+                        <option value="feels_like">Feels Like</option>
+                        <option value="humidity">Humidity</option>
+                    </select>
+                </div>
+                <LineChart data={data}>
                     <Line type="monotone" dataKey="value" stroke="#8884d8" />
                     <CartesianGrid stroke="#ccc" />
                     <XAxis dataKey="name" />
                     <YAxis datakey="value"/>
                     <Tooltip content={<CustomTooltip />} />
                 </LineChart>
-            </div>
+                </ResponsiveContainer>
+             </div>
         </div>
     )
 }
