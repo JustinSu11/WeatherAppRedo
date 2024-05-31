@@ -18,12 +18,12 @@ function WeatherDashboard() {
     }
 
     //Add to cities if city doesn't exist already
-    const addToCities = (latitude, longitude, name) => {
-        const existingCityIndex = cities.findIndex((city) => city.latitude === latitude && city.longitude === longitude)
-        if(existingCityIndex === -1) {
-            setCities((prevCities) => [...prevCities, {latitude: latitude, longitude: longitude, name: name}])
-        }
-    }
+    // const addToCities = (latitude, longitude, name) => {
+    //     const existingCityIndex = cities.findIndex((city) => city.latitude === latitude && city.longitude === longitude)
+    //     if(existingCityIndex === -1) {
+    //         setCities((prevCities) => [...prevCities, {latitude: latitude, longitude: longitude, name: name}])
+    //     }
+    // }
 
     const fetchUserLocation = async () => {
         try {
@@ -37,7 +37,7 @@ function WeatherDashboard() {
                 setUserLocation(newUserLocationCoordinates)
 
                 //retrieve coordinates of popular cities and adds them to the cities coords array
-                setCitiesWithoutNames((prevCitiesWithoutNames) => [{latitude: newUserLocationCoordinates.latitude, longitude: newUserLocationCoordinates.longitude}, ...prevCitiesWithoutNames])
+                setCitiesWithoutNames((prevCitiesWithoutNames) => [{latitude: userLocation.latitude, longitude: userLocation.longitude}, ...prevCitiesWithoutNames])
 
             }
         } catch (error) {
