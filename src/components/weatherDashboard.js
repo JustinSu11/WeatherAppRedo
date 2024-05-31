@@ -36,10 +36,6 @@ function WeatherDashboard() {
                 const { latitude, longitude } = position.coords
                 const newUserLocationCoordinates = { latitude: latitude, longitude: longitude }
                 setUserLocation(newUserLocationCoordinates)
-
-                //retrieve coordinates of popular cities and adds them to the cities coords array
-                setCitiesWithoutNames((prevCitiesWithoutNames) => [{latitude: newUserLocationCoordinates.latitude, longitude: newUserLocationCoordinates.longitude}, ...prevCitiesWithoutNames])
-
             }
         } catch (error) {
             console.error('Error fetching user location: ', error.message)
@@ -82,6 +78,13 @@ function WeatherDashboard() {
         }
         cities.map((city) => console.log(city.name, city.latitude, city.longitude))
     }, [cities])
+
+    useEffect(() => {
+        if(locationFound){
+            //retrieve coordinates of popular cities and adds them to the cities coords array
+            setCitiesWithoutNames((prevCitiesWithoutNames) => [{latitude: userLocation.latitude, longitude: userLocation.longitude}, ...prevCitiesWithoutNames])
+        }
+    }, [locationFound, userLocation])
 
     return (
         <div className='two-column-container'>
