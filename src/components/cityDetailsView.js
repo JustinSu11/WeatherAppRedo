@@ -1,5 +1,5 @@
 import { fetchCityData } from "../api/fetchCityData"
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState } from 'react'
 // import { useNavigate, useParams } from 'react-router-dom';
 import DetailCard from "./CityDetailCardComponent"
 // import DetailAttributesCard from "./CityDetailAttributesCardComponent"
