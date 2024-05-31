@@ -9,7 +9,7 @@ import WeatherDataChart from "./WeatherDataChart"
 const CityDetails = ({ selectedCity }) => {
     const [cityDetails, setCityDetails] = useState(null)
     const [weatherDataForChart, setWeatherDataForChart] = useState([])
-    const [cityName, setCityName] = useState(selectedCity.name)
+    const [cityName, setCityName] = useState('')
     const [selectedWeatherAttribute, setSelectedWeatherAttribute] = useState('temp')
     // const { cityName } = useParams();
     // const navigate = useNavigate();

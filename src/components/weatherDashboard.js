@@ -13,7 +13,8 @@ function WeatherDashboard() {
     const [citiesWithoutNames, setCitiesWithoutNames] = useState([...popularCities])
 
     const handleCityClick = async (latitude, longitude) => {
-        setSelectedCity(cities.find((city) => city.latitude === latitude && city.longitude === longitude))
+        const city = cities.find((city) => city.latitude === latitude && city.longitude === longitude)
+        setSelectedCity(city)
         console.log('Selected city: ', selectedCity)
     }
 
@@ -37,7 +38,7 @@ function WeatherDashboard() {
                 setUserLocation(newUserLocationCoordinates)
 
                 //retrieve coordinates of popular cities and adds them to the cities coords array
-                setCitiesWithoutNames((prevCitiesWithoutNames) => [{latitude: userLocation.latitude, longitude: userLocation.longitude}, ...prevCitiesWithoutNames])
+                setCitiesWithoutNames((prevCitiesWithoutNames) => [{latitude: newUserLocationCoordinates.latitude, longitude: newUserLocationCoordinates.longitude}, ...prevCitiesWithoutNames])
 
             }
         } catch (error) {
@@ -98,7 +99,7 @@ function WeatherDashboard() {
                 {selectedCity ? (
                     <CityDetails selectedCity={selectedCity} />
                 ) : (
-                    null
+                    <p>Please select a city to view the weather details.</p>
                 )}
             </div>
         </div>
