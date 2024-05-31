@@ -16,7 +16,7 @@ span {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.496);
     border-radius: 10px;
     width: 150px;
-    padding: calc(10px + ((100% - max-content) / 2)); /* Dynamic padding calculation */
+    margin: 2.5%;
     height: 75%;
     justify-content: space-between;
 }
