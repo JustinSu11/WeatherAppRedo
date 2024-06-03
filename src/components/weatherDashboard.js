@@ -28,7 +28,6 @@ function WeatherDashboard() {
 
     const fetchUserLocation = async () => {
         try {
-            //retrieve user's location in coordinates
             if (navigator.geolocation) {
                 const position = await new Promise((resolve, reject) => {
                     navigator.geolocation.getCurrentPosition(resolve, reject)
