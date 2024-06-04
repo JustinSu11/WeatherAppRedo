@@ -1,0 +1,23 @@
+.weather-data-chart-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.custom-tooltip-for-WeatherDataChart {
+    background-color: #ffffff;
+    border: 1px solid #999999;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+}
+  
+.WeatherDataChart-label {
+    margin-bottom: 5px;
+}
+  
+.WeatherDataChart-value {
+    margin-top: 5px;
+}

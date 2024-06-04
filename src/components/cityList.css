@@ -1,0 +1,21 @@
+.vertical-scroll-container {
+    overflow-y: auto;
+    flex-wrap: wrap;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.city-list-navigation {
+    display: flex;
+    justify-content: center;
+    margin: 2.5%;
+    height: 100vh;
+}
+
+.city-list-h3 {
+    display: flex; /* Enable flexbox for centering */
+    justify-content: center; /* Center content horizontally */
+    height: 50%;
+    align-items: center;
+}

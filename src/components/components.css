@@ -1,10 +1,3 @@
-.city-list-navigation {
-    display: flex;
-    justify-content: center;
-    margin: 2.5%;
-    height: 100vh;
-}
-
 span {
     margin-top: 25px;
     margin-left: 50px;
@@ -40,72 +33,10 @@ span {
     justify-content: space-between;
 }
 
-.city-list-h3 {
-    display: flex; /* Enable flexbox for centering */
-    justify-content: center; /* Center content horizontally */
-    height: 50%;
-    align-items: center;
-}
-
 .city-attributes-h4 {
     text-align: center;
 }
 
-.vertical-scroll-container {
-    overflow-y: auto;
-    flex-wrap: wrap;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-
-.two-column-container {
-    display: flex;
-    height: 100%;
-}
-
-.column-1 {
-    padding-right: 25px;
-    padding-top: 16px;
-    border-right: 2px solid #ccc;
-    margin-right: 8px;
-    box-sizing: border-box;
-    border-right-width: 3px;
-    border-color: rgba(0, 0, 0, 0.4);
-    margin-top: 25px;
-    margin-bottom: 25px
-}
-
-.column-2 {
-    flex: 1;
-    padding: 16px;
-    box-sizing: border-box;
-}
-
 .city-details-h2 {
     text-align: center;
-}
-
-.weather-data-chart-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.custom-tooltip-for-WeatherDataChart {
-    background-color: #ffffff;
-    border: 1px solid #999999;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    display: flex;
-    flex-direction: column;
-}
-  
-.WeatherDataChart-label {
-    margin-bottom: 5px;
-}
-  
-.WeatherDataChart-value {
-    margin-top: 5px;
 }

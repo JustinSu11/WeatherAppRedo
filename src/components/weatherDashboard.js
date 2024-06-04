@@ -1,7 +1,7 @@
 import CityDetails from "./CityDetails"
 import CityList from "./CityList"
 import React, { useState, useEffect } from "react"
-import './components.css'
+import './weatherDashboard.css'
 import { fetchCityFromCoordinates } from "../api/fetchCityFromCoordinates"
 import { popularCities } from "../configuration/config"
 
@@ -18,7 +18,7 @@ function WeatherDashboard() {
         console.log('Selected city: ', selectedCity)
     }
 
-    //Add to cities if city doesn't exist already
+    // Add to cities if city doesn't exist already
     // const addToCities = (latitude, longitude, name) => {
     //     const existingCityIndex = cities.findIndex((city) => city.latitude === latitude && city.longitude === longitude)
     //     if(existingCityIndex === -1) {
@@ -67,7 +67,7 @@ function WeatherDashboard() {
           updateCityNames()
         }
       
-    }, [])
+    }, [citiesWithoutNames])
 
     useEffect(() => {
         if(cities.length > 0) {

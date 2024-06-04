@@ -1,6 +1,6 @@
 // import { fetchCityData } from "../api/fetchCityData";
 import React from 'react'
-import './components.css'
+import './cityList.css'
 // import { useNavigate } from 'react-router-dom';
 import Card from "./cardComponent"
 // import { fetchCityFromCoordinates } from "../api/fetchCityFromCoordinates"

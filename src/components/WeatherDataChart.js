@@ -1,6 +1,6 @@
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 import React, { useState } from 'react'
-import './components.css'
+import './weatherDataChart.css'
 
 const WeatherDataChart = ({ data }) => {
     const [selectedWeatherAttribute, setSelectedWeatherAttribute] = useState('temp')
