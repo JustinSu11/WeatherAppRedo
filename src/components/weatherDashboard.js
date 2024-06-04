@@ -1,5 +1,5 @@
-import CityDetails from "./cityDetailsView"
-import CityList from "./cityListView"
+import CityDetails from "./CityDetails"
+import CityList from "./CityList"
 import React, { useState, useEffect } from "react"
 import './components.css'
 import { fetchCityFromCoordinates } from "../api/fetchCityFromCoordinates"
