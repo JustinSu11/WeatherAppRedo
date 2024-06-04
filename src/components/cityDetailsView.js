@@ -1,4 +1,4 @@
-import { fetchCityData } from "../api/fetchCityData"
+import { fetchCityForecast } from "../api/fetchCityForecast"
 import React, { useEffect, useState } from 'react'
 import DetailCard from "./CityDetailCardComponent"
 import WeatherDataChart from "./WeatherDataChart"
@@ -9,7 +9,7 @@ const CityDetails = ({ selectedCity }) => {
     const fetchForecastByCity = async () => {
         try {
             const { latitude, longitude, name } = selectedCity
-            const cityData = await fetchCityData(latitude, longitude)
+            const cityData = await fetchCityForecast(latitude, longitude)
             setCityForecastDetails(cityData ? { cityData, name } : null)
             console.log("cityData: ", cityData)
         } catch (error) {
