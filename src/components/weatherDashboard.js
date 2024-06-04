@@ -53,9 +53,7 @@ function WeatherDashboard() {
                 return { latitude: latitude, longitude: longitude, name: cityName }
               })
             )
-            //update cities state
             setCities((prevCities) => [...updatedCities, ...prevCities.filter((city) => !updatedCities.some((updatedCity) => updatedCity.name === city.name))])
-            //remove processed entries from citiesWithoutNames state
             setCitiesWithoutNames((prevCitiesWithoutNames) =>
                 prevCitiesWithoutNames.filter((city) => !updatedCities.some((updatedCity) => updatedCity.latitude === city.latitude && updatedCity.longitude === city.longitude))
             )
@@ -69,7 +67,7 @@ function WeatherDashboard() {
           updateCityNames()
         }
       
-    }, [citiesWithoutNames])
+    }, [])
 
     useEffect(() => {
         if(cities.length > 0) {
