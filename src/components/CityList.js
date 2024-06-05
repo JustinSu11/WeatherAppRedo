@@ -1,9 +1,6 @@
-// import { fetchCityData } from "../api/fetchCityData";
 import React from 'react'
 import './cityList.css'
-// import { useNavigate } from 'react-router-dom';
-import Card from "./cardComponent"
-// import { fetchCityFromCoordinates } from "../api/fetchCityFromCoordinates"
+import Card from "./shared/Card"
 
 const CityList = ({ cities, onCityClick }) => {
     

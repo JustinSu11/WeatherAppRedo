@@ -1,5 +1,5 @@
 import React from "react"
-import "./components.css"
+import "./detailCard.css"
 
 function DetailCard(props) {
     return <div className="city-detail-card">{props.children}</div>

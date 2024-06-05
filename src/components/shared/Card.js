@@ -1,5 +1,5 @@
 import React from "react"
-import "./components.css"
+import "./card.css"
 
 function Card(props) {
     return <div className="card">{props.children}</div>

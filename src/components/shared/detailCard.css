@@ -1,0 +1,10 @@
+.city-detail-card {
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.496);
+    padding: 20px;
+    border-radius: 10px;
+    width: 70%;
+    display: flex;
+    justify-self: center;
+    margin: 0 auto;
+}

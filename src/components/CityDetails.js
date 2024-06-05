@@ -1,7 +1,8 @@
 import { fetchCityForecast } from "../api/fetchCityForecast"
 import React, { useEffect, useState } from 'react'
-import DetailCard from "./CityDetailCardComponent"
+import DetailCard from "./shared/DetailCard"
 import WeatherDataChart from "./WeatherDataChart"
+import './cityDetails.css'
 
 const CityDetails = ({ selectedCity }) => {
     const [cityForecastDetails, setCityForecastDetails] = useState(null)
