@@ -1,9 +1,10 @@
-import CityDetails from "./CityDetails"
-import CityList from "./CityList"
-import React, { useState, useEffect } from "react"
+import CityDetails from './CityDetails'
+import CityList from './CityList'
+import React, { useState, useEffect } from 'react'
 import './weatherDashboard.css'
-import { fetchCityFromCoordinates } from "../api/fetchCityFromCoordinates"
-import { popularCities } from "../configuration/config"
+import { fetchCityFromCoordinates } from '../api/fetchCity'
+import { popularCities } from '../configuration/config'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 function WeatherDashboard() {
     const [userLocation, setUserLocation] = useState(null)
@@ -11,6 +12,9 @@ function WeatherDashboard() {
     const [selectedCity, setSelectedCity] = useState()
     const [locationFound, setLocationFound] = useState(false)
     const [citiesWithoutNames, setCitiesWithoutNames] = useState([...popularCities])
+
+    const navigate = useNavigate()
+    const location = useLocation()
 
     const handleCityClick = async (latitude, longitude) => {
         const city = cities.find((city) => city.latitude === latitude && city.longitude === longitude)
@@ -82,6 +86,17 @@ function WeatherDashboard() {
             setCitiesWithoutNames((prevCitiesWithoutNames) => [{latitude: userLocation.latitude, longitude: userLocation.longitude}, ...prevCitiesWithoutNames])
         }
     }, [locationFound, userLocation])
+
+    useEffect(() => {
+        const params = new URLSearchParams(location.search)
+        const city = params.get('city')
+        const lat = params.get('lat')
+        const lon = params.get('lon')
+
+        if (city && lat && lon){
+            setSelectedCity({name: city, latitude: parseFloat(lat), longitude: parseFloat(lon)})
+        }
+    }, [location.search])
 
     return (
         <div className='two-column-container'>

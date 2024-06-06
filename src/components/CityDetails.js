@@ -3,9 +3,11 @@ import React, { useEffect, useState } from 'react'
 import DetailCard from "./shared/DetailCard"
 import WeatherDataChart from "./WeatherDataChart"
 import './cityDetails.css'
+import { useNavigate } from 'react-router-dom'
 
 const CityDetails = ({ selectedCity }) => {
     const [cityForecastDetails, setCityForecastDetails] = useState(null)
+    const navigate = useNavigate()
 
     const fetchForecastByCity = async () => {
         try {
@@ -13,6 +15,9 @@ const CityDetails = ({ selectedCity }) => {
             const cityData = await fetchCityForecast(latitude, longitude)
             setCityForecastDetails(cityData ? { cityData, name } : null)
             console.log("cityData: ", cityData)
+
+            const queryParams = new URLSearchParams({city: name, lat: latitude, lon: longitude}).toString()
+            navigate(`?${queryParams}`)
         } catch (error) {
             console.error('Error fetching city data:', error.message)
         }

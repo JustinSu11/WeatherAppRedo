@@ -1,10 +1,13 @@
 import React from 'react'
 import WeatherDashboard from './components/WeatherDashboard'
+import { BrowserRouter as Router } from 'react-router-dom'
 import './App.css'
 
 function App() {
   return (
-    <WeatherDashboard />
+    <Router>
+        <WeatherDashboard />
+    </Router>
   )
 }
 
