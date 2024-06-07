@@ -27,6 +27,7 @@ const CityDetails = ({ selectedCity }) => {
         if(selectedCity && selectedCity.latitude && selectedCity.longitude) {
             fetchForecastByCity()
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedCity])
 
     return (

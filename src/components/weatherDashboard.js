@@ -67,7 +67,7 @@ function WeatherDashboard() {
       
         // Call updateCityNames only when citiesWithoutNames changes
         if (citiesWithoutNames.length > 0) {
-          updateCityNames()
+            updateCityNames()
         }
       
     }, [citiesWithoutNames])
