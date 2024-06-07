@@ -1,5 +1,5 @@
 import React from 'react'
-import WeatherDashboard from './components/WeatherDashboard'
+import WeatherDashboard from './components/weatherDashboard.js'
 import { BrowserRouter as Router } from 'react-router-dom'
 import './App.css'
 

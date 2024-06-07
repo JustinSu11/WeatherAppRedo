@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import './weatherDashboard.css'
 import { fetchCityFromCoordinates } from '../api/fetchCity'
 import { popularCities } from '../configuration/config'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 
 function WeatherDashboard() {
     const [userLocation, setUserLocation] = useState(null)
@@ -13,7 +13,6 @@ function WeatherDashboard() {
     const [locationFound, setLocationFound] = useState(false)
     const [citiesWithoutNames, setCitiesWithoutNames] = useState([...popularCities])
 
-    const navigate = useNavigate()
     const location = useLocation()
 
     const handleCityClick = async (latitude, longitude) => {
