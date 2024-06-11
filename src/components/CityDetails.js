@@ -35,7 +35,6 @@ const CityDetails = ({ selectedCity }) => {
             <div style={{justifyContent: 'space-around', height: '100%'}}>
                 {cityForecastDetails ? (
                     <>
-                        {console.log("city log in detail view", cityForecastDetails)}
                         <h2 className='city-details-h2'>{selectedCity.name}</h2>
                         <WeatherDataChart data={cityForecastDetails.cityData} />
                         <DetailCard>

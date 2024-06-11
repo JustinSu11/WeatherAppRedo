@@ -22,12 +22,15 @@ function WeatherDashboard() {
     }
 
     // Add to cities if city doesn't exist already
-    // const addToCities = (latitude, longitude, name) => {
-    //     const existingCityIndex = cities.findIndex((city) => city.latitude === latitude && city.longitude === longitude)
-    //     if(existingCityIndex === -1) {
-    //         setCities((prevCities) => [...prevCities, {latitude: latitude, longitude: longitude, name: name}])
-    //     }
-    // }
+    const addToCities = (latitude, longitude, name) => {
+        const newCity = {latitude: latitude, longitude: longitude, name: name}
+        
+        if(!cities.find((city) => city.name === name)){
+            console.log('Adding new city:', { latitude, longitude, name }) 
+            setCities((prevCities) => [{ latitude: parseFloat(latitude), longitude: parseFloat(longitude), name }, ...prevCities.filter((city) => newCity.name !== city.name)])
+        }
+        setSelectedCity(cities[0])
+    } 
 
     const fetchUserLocation = async () => {
         try {
@@ -60,6 +63,18 @@ function WeatherDashboard() {
             setCitiesWithoutNames((prevCitiesWithoutNames) =>
                 prevCitiesWithoutNames.filter((city) => !updatedCities.some((updatedCity) => updatedCity.latitude === city.latitude && updatedCity.longitude === city.longitude))
             )
+            const params = new URLSearchParams(location.search)
+            const city = params.get('city')
+            const lat = params.get('lat')
+            const lon = params.get('lon')
+
+            if (city && lat && lon) {
+                if (!cities.find((c) => c.name === city && c.latitude === parseFloat(lat) && c.longitude === parseFloat(lon))) {
+                    addToCities(parseFloat(lat), parseFloat(lon), city)
+                } else {
+                    setSelectedCity({ name: city, latitude: parseFloat(lat), longitude: parseFloat(lon) })
+                }
+            }
           } catch (error) {
             console.error('Error fetching city data:', error.message)
           }
@@ -70,32 +85,28 @@ function WeatherDashboard() {
             updateCityNames()
         }
       
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [citiesWithoutNames])
+
+    useEffect(() => {
+        if(locationFound && userLocation){
+            const existingUserLocation = citiesWithoutNames.find((city) => city.latitude === userLocation.latitude && city.longitude === userLocation.longitude)
+            if(!existingUserLocation){
+                setCitiesWithoutNames((prevCitiesWithoutNames) => [{latitude: userLocation.latitude, longitude: userLocation.longitude}, ...prevCitiesWithoutNames])
+            }
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [locationFound])
+
+    //fuck this shit
 
     useEffect(() => {
         if(cities.length > 0) {
             setSelectedCity(cities[0])
         }
         cities.map((city) => console.log(city.name, city.latitude, city.longitude))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [cities])
-
-    useEffect(() => {
-        if(locationFound){
-            //retrieve coordinates of popular cities and adds them to the cities coords array
-            setCitiesWithoutNames((prevCitiesWithoutNames) => [{latitude: userLocation.latitude, longitude: userLocation.longitude}, ...prevCitiesWithoutNames])
-        }
-    }, [locationFound, userLocation])
-
-    useEffect(() => {
-        const params = new URLSearchParams(location.search)
-        const city = params.get('city')
-        const lat = params.get('lat')
-        const lon = params.get('lon')
-
-        if (city && lat && lon){
-            setSelectedCity({name: city, latitude: parseFloat(lat), longitude: parseFloat(lon)})
-        }
-    }, [location.search])
 
     return (
         <div className='two-column-container'>
