@@ -56,13 +56,10 @@ function WeatherDashboard() {
               citiesWithoutNames.map(async (cityCoords) => {
                 const { latitude, longitude } = cityCoords
                 const cityName = await fetchCityFromCoordinates(latitude, longitude)
-                return { latitude: latitude, longitude: longitude, name: cityName }
+                return addToCities(latitude, longitude, cityName)
               })
             )
-            setCities((prevCities) => [...updatedCities, ...prevCities.filter((city) => !updatedCities.some((updatedCity) => updatedCity.name === city.name))])
-            setCitiesWithoutNames((prevCitiesWithoutNames) =>
-                prevCitiesWithoutNames.filter((city) => !updatedCities.some((updatedCity) => updatedCity.latitude === city.latitude && updatedCity.longitude === city.longitude))
-            )
+            citiesWithoutNames.slice((prevCitiesWithoutNames) => prevCitiesWithoutNames.filter((city) => updatedCities.some((updatedCity) => updatedCity.latitude === city.latitude && updatedCity.longitude === city.longitude)))
             const params = new URLSearchParams(location.search)
             const city = params.get('city')
             const lat = params.get('lat')
