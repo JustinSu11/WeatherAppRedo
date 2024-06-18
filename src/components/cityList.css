@@ -18,3 +18,10 @@
     height: 50%;
     align-items: center;
 }
+
+.list-item {
+    width: 150px;
+    margin: 2.5%;
+    height: 75%;
+    justify-content: space-between;
+}
