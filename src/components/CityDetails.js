@@ -1,9 +1,9 @@
 import { fetchCityForecast } from "../api/fetchCityForecast"
 import React, { useEffect, useState } from 'react'
-import DetailCard from "./shared/DetailCard"
 import WeatherDataChart from "./WeatherDataChart"
 import './cityDetails.css'
 import { useNavigate } from 'react-router-dom'
+import { Paper } from '@mui/material'
 
 const CityDetails = ({ selectedCity }) => {
     const [cityForecastDetails, setCityForecastDetails] = useState(null)
@@ -37,11 +37,11 @@ const CityDetails = ({ selectedCity }) => {
                     <>
                         <h2 className='city-details-h2'>{selectedCity.name}</h2>
                         <WeatherDataChart data={cityForecastDetails.cityData} />
-                        <DetailCard>
+                        <Paper elevation={16} className='attributes-container'>
                             <p>
                                 Current temp: {cityForecastDetails.cityData.current.temp}°
                             </p>
-                        </DetailCard>
+                        </Paper>
                     </>
                 ) : (
                     <p>Select a city to view the weather</p>

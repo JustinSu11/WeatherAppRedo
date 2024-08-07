@@ -5,6 +5,8 @@ import './weatherDashboard.css'
 import { fetchCityFromCoordinates } from '../api/fetchCity'
 import { popularCities } from '../configuration/config'
 import { useLocation } from 'react-router-dom'
+import Grid from '@mui/material/Unstable_Grid2'
+import { Divider, Button } from '@mui/material'
 
 function WeatherDashboard() {
     const [userLocation, setUserLocation] = useState(null)
@@ -106,25 +108,26 @@ function WeatherDashboard() {
     }, [cities])
 
     return (
-        <div className='two-column-container'>
-            <div className='column-1'>
+        <Grid container spacing={2}>
+            <Grid xs={2} className='city-list-container'>
                 {locationFound ? (
                     <CityList cities={cities} onCityClick={handleCityClick}/>
                 ) : (
                         <>
-                            <button onClick={() => fetchUserLocation()}>My Location</button>
+                            <Button variant='contained' size='small' onClick={() => fetchUserLocation()}>My Location</Button>
                             <CityList cities={cities} onCityClick={handleCityClick}/>
                         </>
                 )}
-            </div>
-            <div className='column-2'>
+            </Grid>
+            <Divider variant='middle' orientation='vertical' flexItem sx={{borderColor: 'black', borderWidth: '1px', opacity: 0.6}}/>
+            <Grid xs={9}>
                 {selectedCity ? (
                     <CityDetails selectedCity={selectedCity} />
                 ) : (
                     <p>Please select a city to view the weather details.</p>
                 )}
-            </div>
-        </div>
+            </Grid>
+        </Grid>
     )
 }
 

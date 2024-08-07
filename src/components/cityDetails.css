@@ -1,3 +1,11 @@
 .city-details-h2 {
     text-align: center;
 }
+
+.attributes-container {
+    padding: 20px;
+    width: 70%;
+    display: flex;
+    justify-self: center;
+    margin: 0 auto;
+}

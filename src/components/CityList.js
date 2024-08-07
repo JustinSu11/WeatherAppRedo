@@ -1,6 +1,6 @@
 import React from 'react'
 import './cityList.css'
-import Card from "./shared/Card"
+import { Paper } from '@mui/material'
 
 const CityList = ({ cities, onCityClick }) => {
     
@@ -9,11 +9,11 @@ const CityList = ({ cities, onCityClick }) => {
             {cities.map((city) => (
                 <>
                 <div key={city.name} onClick={() => onCityClick(city.latitude, city.longitude)} style={{ cursor: 'pointer', width: '200px', height: '100px'}} className='city-list-navigation'>
-                    <Card>
+                    <Paper elevation={6} className='list-item'>
                         <h3 className='city-list-h3'>
                             {city.name}
                         </h3>
-                    </Card>
+                    </Paper>
                 </div>
                 </>
             ))}
