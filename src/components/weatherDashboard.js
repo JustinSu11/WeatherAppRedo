@@ -109,7 +109,7 @@ function WeatherDashboard() {
 
     return (
         <Grid container spacing={2}>
-            <Grid xs={2}>
+            <Grid xs={2} className='city-list-container'>
                 {locationFound ? (
                     <CityList cities={cities} onCityClick={handleCityClick}/>
                 ) : (

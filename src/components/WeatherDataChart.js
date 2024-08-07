@@ -1,4 +1,4 @@
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
+import { AreaChart, Area, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer, Brush } from 'recharts'
 import React, { useState } from 'react'
 import './weatherDataChart.css'
 
@@ -37,22 +37,29 @@ const WeatherDataChart = ({ data }) => {
             
             {/*recharts*/}
             <div className='weather-data-chart-container'>
-                <ResponsiveContainer width="60%" aspect={3}>
-                {/*dropdown for filter */}
-                <div style={{display: 'flex', justifyContent: 'flex-end' }}>
-                    <select value={selectedWeatherAttribute} onChange={handleFilterChange}>
-                        <option value="temp">Temperature</option>
-                        <option value="feels_like">Feels Like</option>
-                        <option value="humidity">Humidity</option>
-                    </select>
-                </div>
-                <LineChart data={transformedData}>
-                    <Line type="monotone" dataKey="value" stroke="#8884d8" />
-                    <CartesianGrid stroke="#ccc" />
-                    <XAxis dataKey="name" />
-                    <YAxis datakey="value"/>
-                    <Tooltip content={<CustomTooltip />} />
-                </LineChart>
+                <ResponsiveContainer width="60%" aspect={2.5}>
+                    {/*dropdown for filter */}
+                    <div style={{display: 'flex', justifyContent: 'flex-end' }}>
+                        <select value={selectedWeatherAttribute} onChange={handleFilterChange}>
+                            <option value="temp">Temperature</option>
+                            <option value="feels_like">Feels Like</option>
+                            <option value="humidity">Humidity</option>
+                        </select>
+                    </div>
+                    <AreaChart data={transformedData}>
+                        <defs>
+                            <linearGradient id="heat" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="5%" stopColor="red" stopOpacity={0.8}/>
+                                <stop offset="95%" stopColor="yellow" stopOpacity={0.3}/>
+                            </linearGradient>
+                        </defs>
+                        <Area type="monotone" dataKey="value" stroke="#8884d8" fillOpacity={1} fill="url(#heat)" /> 
+                        <CartesianGrid stroke="#ccc" />
+                        <XAxis dataKey="name" />
+                        <YAxis datakey="value"/>
+                        <Tooltip content={<CustomTooltip />} />
+                        <Brush dataKey="name" height={5} stroke="#8884d8" endIndex={5} />
+                    </AreaChart>
                 </ResponsiveContainer>
              </div>
         </div>

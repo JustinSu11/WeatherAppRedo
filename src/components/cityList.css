@@ -13,8 +13,8 @@
 }
 
 .city-list-h3 {
-    display: flex; /* Enable flexbox for centering */
-    justify-content: center; /* Center content horizontally */
+    display: flex;
+    justify-content: center;
     height: 50%;
     align-items: center;
 }
